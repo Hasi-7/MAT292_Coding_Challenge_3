@@ -10,7 +10,11 @@ from q2 import tikhonov
 def add_reverb(x, h):
     """Return all len(x) + len(h) - 1 samples of the full convolution.
     """
-    # YOUR CODE HERE
+    y_k = np.zeros(len(x) + len(h) - 1)
+    #* Start index is defined by which index of h we are at
+    for i in range(len(h)):
+        y_k[i:i + len(x)] += (x * h[i])
+    return y_k
     raise NotImplementedError()
 
 
@@ -20,14 +24,19 @@ def convolution_matrix(h, n):
 
     For any n-sample signal x, H @ x should match add_reverb(x, h).
     """
-    # YOUR CODE HERE
+    #* y_k = Hx
+    H = np.zeros((n + len(h) - 1) * n)
+    H = H.reshape(n + len(h) - 1, n)
+    for i in range(n):
+        H[i:len(h) + i, i] = h
+    return H
     raise NotImplementedError()
 
 
 # Q3(b): use the Tikhonov solver from Q2 on the noisy recording.
 def reconstruct_signal(H, ydelta, lam):
     """The recovered signal has one sample per column of H."""
-    # YOUR CODE HERE
+    return tikhonov(H, ydelta, lam)
     raise NotImplementedError()
 
 

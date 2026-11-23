@@ -8,7 +8,6 @@ from q1 import gauss_legendre, matrix_transform, save_figure
 def inverse_transform(A, F):
     """Find the least-squares fit to F by solving A @ f_rec = F using np.linalg.solve.
     """
-    # YOUR
     return np.linalg.solve(A, F)
     raise NotImplementedError()
 
@@ -17,7 +16,11 @@ def inverse_transform(A, F):
 def tikhonov(A, F, lam):
     """Construct the augmented system and solve it with np.linalg.lstsq.
     """
-    # YOUR CODE HERE
+    n = A.shape[1]
+    B = np.vstack([A, lam*np.identity(n)])
+    b = np.concatenate([F, np.zeros(n)])
+
+    return np . linalg . lstsq (B , b , rcond = None ) [0]
     raise NotImplementedError()
 
 
@@ -28,7 +31,12 @@ def reconstruction_errors(A, Fdelta, f, lambdas):
     The relative error is np.linalg.norm(f_rec - f) / np.linalg.norm(f).
     Return the errors in a 1-D array in the same order as lambdas.
     """
-    # YOUR CODE HERE
+    errors = np.zeros(len(lambdas))
+    for i in range(len(lambdas)):
+        f_rec = tikhonov(A, Fdelta, lambdas[i])
+        errors[i] = np.linalg.norm(f_rec - f) / np.linalg.norm(f)
+
+    return errors
     raise NotImplementedError()
 
 
