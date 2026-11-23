@@ -8,6 +8,7 @@ from q1 import gauss_legendre, matrix_transform, save_figure
 def inverse_transform(A, F):
     """Find the least-squares fit to F by solving A @ f_rec = F using np.linalg.solve.
     """
+    # YOUR
     return np.linalg.solve(A, F)
     raise NotImplementedError()
 
