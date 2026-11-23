@@ -41,7 +41,11 @@ def quadrature_transform(s, t, w, f):
 
     Call f with a single time node to get its value there.
     """
-    # YOUR CODE HERE
+    res = np.zeros(len(s))
+    f_tj = [f(time) for time in t]
+    for j in range(len(s)):
+        res[j] = np.sum(w*f_tj*np.power(np.e, (-1)*s[j]*t))
+    return res
     raise NotImplementedError()
 
 
@@ -49,7 +53,14 @@ def quadrature_transform(s, t, w, f):
 # Each row of A uses one s value. Each column uses one time node.
 def matrix_transform(s, t, w, f):
     """Return (A, fvec, F), where fvec[j] = f(t[j]) and F = A @ fvec."""
-    # YOUR CODE HERE
+    fvec = [f(time) for time in t]
+    s_n = s.reshape(len(s), 1)
+    A = (-1) * (s_n * t)
+    A = np.exp(A)
+    A = A * w
+    F = A @ fvec
+    return (A, fvec, F)
+    
     raise NotImplementedError()
 
 
