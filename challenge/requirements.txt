@@ -1,8 +1,0 @@
-# MAT292 Assignment 3. Use Python 3.10, 3.11, or 3.12.
-#
-# From this directory, run uv sync, then uv run python q1.py.
-# For a requirements-based setup, run uv venv and then:
-#   uv pip install -r requirements.txt
-numpy>=1.24,<3
-scipy>=1.10,<2
-matplotlib>=3.7,<4
