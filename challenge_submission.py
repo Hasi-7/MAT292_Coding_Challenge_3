@@ -12,10 +12,15 @@ def estimate_DH(X, Y):
     Column j of X represents the clean training clip and column j of Y
     represents its distorted version.
     """
-    dh = np.zeros(X.shape[0], dtype=complex)
-    for i in range(len(X)):
-        dh[i] = np.linalg.lstsq(X[i, :, None], Y[i, :], rcond=None)[0][0]
-    return dh
+    # dh = np.zeros(X.shape[0], dtype=complex)
+    # for i in range(len(X)):
+    #     dh[i] = np.linalg.lstsq(X[i, :, None], Y[i, :], rcond=None)[0][0]
+    # return dh
+
+    alpha = 0
+    numerator = np.sum(X.conj() * Y, axis=1)
+    denominator = np.sum(np.abs(X) ** 2, axis=1)
+    return numerator / (denominator + alpha)
     raise NotImplementedError("Complete estimate_DH to fit the training clips.")
 
 def fit(clean, distorted):
